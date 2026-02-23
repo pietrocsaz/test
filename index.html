@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe Chicken - Explosão de Sabor</title>
+    <meta name="description"
+        content="O frango mais crocante da cidade, preparado na hora e entregue quente na sua casa. Experiência que vai muito além do comum.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F3E7DA;
+            --primary: #E10600;
+            --primary-hover: #b80500;
+            --black: #0f0f0f;
+            --white: #ffffff;
+            --text-muted: #4a4a4a;
+            --border: rgba(15, 15, 15, 0.1);
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+
+            --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--black);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            margin: 0;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .highlight {
+            color: var(--primary);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+            letter-spacing: -0.01em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(225, 6, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(225, 6, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .hero .btn-secondary {
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .hero .btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            z-index: 1000;
+            box-sizing: border-box;
+            transition: var(--transition-smooth);
+        }
+
+        .navbar.scrolled {
+            padding: 1rem 5%;
+            background: rgba(243, 231, 218, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: var(--transition-fast);
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar.scrolled .nav-links a {
+            color: var(--black);
+            text-shadow: none;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition-fast);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(225, 6, 0, 0.3);
+        }
+
+        .navbar.scrolled .nav-btn {
+            background: var(--black);
+            box-shadow: none;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            box-sizing: border-box;
+            background-color: var(--black);
+            color: var(--white);
+            overflow: hidden;
+            /* Ensure canvas stays within */
+        }
+
+        .hero-visual {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        #hero-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 50%;
+            position: relative;
+            z-index: 10;
+            padding-top: 80px;
+            /* Adicionando sombra no texto para que fique mais legível não importa o fundo */
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.5rem;
+            text-wrap: balance;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 1rem;
+            max-width: 90%;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+            max-width: 80%;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /* Gradient overlay on the left to guarantee text readability instead of circular glow */
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%);
+            top: 0;
+            left: 0;
+            transform: none;
+            z-index: 3;
+            /* Between canvas and text */
+        }
+
+        /* Section Title global */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3.5rem;
+            letter-spacing: -0.03em;
+            text-align: center;
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 8rem 5%;
+            background: var(--white);
+            position: relative;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--bg-color);
+            border-radius: 20px;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--border);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            background: var(--white);
+            border-color: var(--primary);
+        }
+
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            transition: var(--transition-smooth);
+        }
+
+        .benefit-card:hover .icon-wrapper {
+            background: var(--primary);
+            color: var(--white);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            color: var(--text-muted);
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 8rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-img-wrapper {
+            height: 250px;
+            background: #e8dccf;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img-wrapper.placeholder-img::before {
+            content: '🍗 Imagem Premium';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: rgba(0, 0, 0, 0.2);
+            font-size: 1.5rem;
+        }
+
+        .product-card:hover .product-img-wrapper {
+            transform: scale(1.05);
+            transition: var(--transition-smooth);
+        }
+
+        .product-info {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+            z-index: 2;
+        }
+
+        .product-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .product-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .btn-add {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+        }
+
+        .btn-add:hover {
+            background: var(--primary);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 8rem 5%;
+            background: var(--white);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .review-card {
+            background: var(--bg-color);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .stars {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .review-author {
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Delivery CTA Section */
+        .delivery-cta {
+            background: var(--primary);
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .delivery-cta::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -300px;
+            right: -100px;
+        }
+
+        .delivery-cta::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -100px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            color: var(--white);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-btn {
+            background: var(--black);
+            color: var(--white);
+            font-size: 1.3rem;
+            padding: 1.2rem 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--black);
+            color: var(--white);
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+        }
+
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 300px;
+        }
+
+        .site-footer h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .site-footer p,
+        .site-footer a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: var(--transition-fast);
+        }
+
+        .site-footer a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+
+            .hero-content {
+                max-width: 65%;
+            }
+
+            .benefits-grid,
+            .products-grid,
+            .reviews-grid {
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+                /* simple mobile hide for now */
+            }
+
+            .hero {
+                align-items: flex-end;
+                /* Text somewhat lower on mobile */
+                padding-bottom: 60px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                padding-top: 100px;
+                z-index: 10;
+                margin-bottom: 20px;
+            }
+
+            .hero-actions {
+                flex-wrap: wrap;
+            }
+
+            .hero-visual {
+                width: 100%;
+                height: 100%;
+                /* Keeps full screen behind */
+            }
+
+            .glow-effect {
+                /* On mobile, gradient goes from bottom to top for readability */
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 45%, transparent 100%);
+            }
+
+            .benefits-grid,
+            .products-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .site-footer a:hover {
+                transform: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .cta-content h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">Vibe Chicken</div>
+        <nav class="nav-links">
+            <a href="#about">Por Quê?</a>
+            <a href="#menu">Cardápio</a>
+            <a href="#reviews">Avaliações</a>
+        </nav>
+        <a href="#cta" class="nav-btn">Pedir Agora</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-visual">
+            <canvas id="hero-canvas"></canvas>
+            <!-- A glowing backdrop behind the canvas -->
+        </div>
+        <div class="glow-effect"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Explosão de<br><span class="highlight">Sabor</span> em<br>Cada Mordida</h1>
+            <p class="hero-subtitle">O frango mais crocante da cidade, preparado na hora e entregue quente na sua casa.
+            </p>
+            <p class="hero-desc">Ingredientes selecionados, tempero exclusivo e uma experiência que vai muito além do
+                comum.</p>
+            <div class="hero-actions">
+                <a href="#menu" class="btn btn-primary">Ver Cardápio</a>
+                <a href="#cta" class="btn btn-secondary">Pedir Agora</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">Por Que Escolher a Vibe Chicken?</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="icon-wrapper">
+                    <!-- Crisp Icon (SVG) -->
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="benefit-icon">
+                        <path
+                            d="M11.999 22c-5.523 0-10-4.477-10-10 0-5.523 4.477-10 10-10 5.523 0 10 4.477 10 10 0 5.523-4.477 10-10 10zm-3-11v4l8-4-8-4v4z"
+                            fill="currentColor" />
+                    </svg>
+                </div>
+                <h3>Crocância Perfeita</h3>
+                <p>Nossa técnica garante o croque em cada pedaço, sem ficar encharcado.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="benefit-icon">
+                        <path
+                            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41M12 6a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <h3>Entrega Rápida</h3>
+                <p>Embalagens térmicas especiais para chegar fervendo à sua porta.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="icon-wrapper">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="benefit-icon">
+                        <path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8.5M10.5 4.5l-2.5 6h8l-2.5-6M3 10.5h18"
+                            stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <h3>Ingredientes Frescos</h3>
+                <p>Aves de criadores locais, marinados por 24h em temperos secretos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="menu" class="products-section">
+        <h2 class="section-title text-center">Nossos Clássicos</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-img-wrapper placeholder-img">
+                    <div class="overlay"></div>
+                </div>
+                <div class="product-info">
+                    <h3>Balde Vibe Supremo</h3>
+                    <p>12 pedaços grandes, super crocantes e macios por dentro.</p>
+                    <div class="product-bottom">
+                        <span class="price">R$ 59,90</span>
+                        <button class="btn btn-add">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper placeholder-img">
+                    <div class="overlay"></div>
+                </div>
+                <div class="product-info">
+                    <h3>Combo Casal</h3>
+                    <p>6 pedaços, 2 batatas fritas médias e 2 molhos especiais.</p>
+                    <div class="product-bottom">
+                        <span class="price">R$ 45,90</span>
+                        <button class="btn btn-add">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper placeholder-img">
+                    <div class="overlay"></div>
+                </div>
+                <div class="product-info">
+                    <h3>Tiras Vibe (Sem Osso)</h3>
+                    <p>10 tiras de peito empanadas. Perfeitas para mergulhar no molho.</p>
+                    <div class="product-bottom">
+                        <span class="price">R$ 38,90</span>
+                        <button class="btn btn-add">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section id="reviews" class="reviews-section">
+        <h2 class="section-title">O Que Nossos Clientes Dizem</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Absolutamente o melhor frango frito que já comi! A crocância é surreal e chegou
+                    super quente."</p>
+                <p class="review-author">- Carlos Mendes</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"O tempero é inigualável. Pedi no sábado e em 20 minutos estava na minha porta.
+                    Recomendo muito!"</p>
+                <p class="review-author">- Juliana Tavares</p>
+            </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"Os molhos artesanais fazem toda a diferença. Virou parada obrigatória no fim de
+                    semana."</p>
+                <p class="review-author">- Roberto Farias</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery CTA Section -->
+    <section id="cta" class="delivery-cta">
+        <div class="cta-content">
+            <h2>Peça Agora e Receba em Minutos</h2>
+            <p>Não passe vontade. O melhor frango da sua vida está a um clique de distância.</p>
+            <button class="btn btn-primary cta-btn">Fazer Pedido</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">Vibe Chicken</div>
+                <p>Explosão de sabor em cada mordida.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Contato</h4>
+                <p>(11) 99999-9999</p>
+                <p>contato@vibechicken.com.br</p>
+                <p>Av. Paulista, 1000 - São Paulo, SP</p>
+            </div>
+            <div class="footer-hours">
+                <h4>Horários</h4>
+                <p>Ter a Dom: 18h às 23h</p>
+                <p>Segunda: Fechado</p>
+            </div>
+            <div class="footer-social">
+                <h4>Siga-nos</h4>
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Vibe Chicken. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // ---- Navbar Scroll Effect ----
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // ---- Smooth Scroll for Anchor Links ----
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // ---- Canvas Animation Sequence ----
+            const canvas = document.getElementById("hero-canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Setting canvas size
+            const setCanvasSize = () => {
+                canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+                canvas.height = canvas.offsetHeight * window.devicePixelRatio;
+                ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = "high";
+            };
+
+            setCanvasSize();
+            window.addEventListener('resize', setCanvasSize);
+
+            // Image Sequence settings
+            const frameCount = 80;
+            const images = [];
+            const imagePrefix = 'assets/Cinematic_slowmotion_food_202602212353_tmf0p_';
+
+            // The number should be padded to 3 digits like 000, 001
+            const getImagePath = (index) => {
+                const paddedIndex = index.toString().padStart(3, '0');
+                return `${imagePrefix}${paddedIndex}.jpg`;
+            };
+
+            // Preload Images
+            let imagesLoaded = 0;
+            for (let i = 0; i < frameCount; i++) {
+                const img = new Image();
+                img.src = getImagePath(i);
+                img.onload = () => {
+                    imagesLoaded++;
+                    // Draw first frame once loaded
+                    if (imagesLoaded === 1) {
+                        renderFrame(0);
+                    }
+                };
+                images.push(img);
+            }
+
+            // Animation Loop Variables
+            let currentFrame = 0;
+            let fps = 24; // Cinematic 24fps
+            let now;
+            let then = Date.now();
+            let interval = 1000 / fps;
+            let delta;
+
+            // Play direction: 1 for forward, -1 for backward (to make loop smooth)
+            let playDirection = 1;
+
+            const renderFrame = (index) => {
+                if (!images[index] || !images[index].complete) return;
+
+                const img = images[index];
+                // Calculate crop to fill the canvas like object-fit: cover
+                const zoom = 1.05; // 5% zoom to crop out any borders in the images
+                const canvasRatio = canvas.offsetWidth / canvas.offsetHeight;
+                const imgRatio = img.width / img.height;
+
+                let drawWidth, drawHeight, offsetX, offsetY;
+
+                if (canvasRatio > imgRatio) {
+                    drawWidth = canvas.offsetWidth * zoom;
+                    drawHeight = drawWidth / imgRatio;
+                } else {
+                    drawHeight = canvas.offsetHeight * zoom;
+                    drawWidth = drawHeight * imgRatio;
+                }
+
+                offsetX = (canvas.offsetWidth - drawWidth) / 2;
+                offsetY = (canvas.offsetHeight - drawHeight) / 2;
+
+                ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+                // Fill base with matching hero bg
+                ctx.fillStyle = "#0f0f0f";
+                ctx.fillRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
+                ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+            };
+
+            const loop = () => {
+                requestAnimationFrame(loop);
+
+                now = Date.now();
+                delta = now - then;
+
+                if (delta > interval) {
+                    then = now - (delta % interval);
+
+                    renderFrame(currentFrame);
+
+                    // Ping-pong loop calculation for smooth reset
+                    currentFrame += playDirection;
+
+                    if (currentFrame >= frameCount - 1) {
+                        playDirection = -1; // Reverse when hitting the end
+                    } else if (currentFrame <= 0) {
+                        playDirection = 1; // Play forward when hitting the start
+                    }
+                }
+            };
+
+            // Start Animation Loop
+            loop();
+
+            // ---- Intersection Observer for fade-in elements (Optional Polish) ----
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Apply to elements
+            const fadeElements = document.querySelectorAll('.benefit-card, .product-card, .review-card, .section-title');
+            fadeElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+
+</html>
